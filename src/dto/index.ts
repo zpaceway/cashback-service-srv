@@ -18,3 +18,8 @@ export class UnprocessedOrderDto {
     lastName: string;
   };
 }
+
+export class UserLoginFormDto {
+  userId: string;
+  password: string;
+}

@@ -17,20 +17,21 @@ export class OrdersService {
   async processOrder(
     unprocessedOrder: UnprocessedOrderDto,
   ): Promise<ProcessedOrderDto> {
-    const prevOrdersCount = await this.orderRepository.count({
-      where: {
-        userId: unprocessedOrder.user.id,
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    const user = await this.userRepository.findOne({
-      where: {
-        id: unprocessedOrder.user.id,
-      },
-    });
+    const [prevOrdersCount, user] = await Promise.all([
+      this.orderRepository.count({
+        where: {
+          userId: unprocessedOrder.user.id,
+        },
+        select: {
+          id: true,
+        },
+      }),
+      this.userRepository.findOne({
+        where: {
+          id: unprocessedOrder.user.id,
+        },
+      }),
+    ]);
 
     if (!user) {
       await this.userRepository.insert({
@@ -62,7 +63,7 @@ export class OrdersService {
     return {
       id: processedOrder.id,
       user: {
-        id: unprocessedOrder.id,
+        id: unprocessedOrder.user.id,
         firstName: unprocessedOrder.user.firstName,
         lastName: unprocessedOrder.user.lastName,
       },

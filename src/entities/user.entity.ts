@@ -12,6 +12,9 @@ export class User {
   @Column({ length: 40 })
   lastName: string;
 
+  @Column({ nullable: true, default: true })
+  refreshToken: string | null;
+
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
 }

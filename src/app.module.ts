@@ -6,8 +6,9 @@ import { ConfigModule } from './config/config.module';
 import { OrdersModule } from './orders/orders.module';
 import { ApiModule } from './api/api.module';
 import { DatabasesModule } from './databases/databases.module';
-import { LoggingModule } from './logging/logging.module';
+import { LoggerModule } from './logger/logger.module';
 import { MonitoringModule } from './monitoring/monitoring.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -16,8 +17,9 @@ import { MonitoringModule } from './monitoring/monitoring.module';
     OrdersModule,
     ApiModule,
     DatabasesModule,
-    LoggingModule,
+    LoggerModule,
     MonitoringModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

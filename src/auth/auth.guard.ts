@@ -8,7 +8,10 @@ export class AuthGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
-    if (request.headers['x-api-key'] === process.env.SERVICE_API_KEY) {
+    if (
+      request.headers['x-api-key'] === process.env.SERVICE_API_KEY ||
+      request.originalUrl.startsWith('/api/users')
+    ) {
       return true;
     }
 
