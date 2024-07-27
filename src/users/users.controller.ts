@@ -7,18 +7,18 @@ import { Request } from 'express';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @Post('/auth/login')
+  @Post('auth/login')
   login(@Body() userLoginForm: UserLoginFormDto) {
     return this.usersService.login(userLoginForm);
   }
 
-  @Post('/auth/logout')
+  @Post('auth/logout')
   async logout(@Req() req: Request) {
     const user = await this.usersService.getUserFromRequest(req);
     return this.usersService.logout(user);
   }
 
-  @Post('/auth/refresh')
+  @Post('auth/refresh')
   async refresh(@Body() tokenPayload: { refreshToken: string }) {
     return this.usersService.getNewAccessTokenFromRefreshToken(
       tokenPayload.refreshToken,
